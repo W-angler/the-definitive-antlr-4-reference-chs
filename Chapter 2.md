@@ -21,7 +21,7 @@
 
 　　而第二阶段，输入token流，并且分析出它的句子结构（在上面的例子中，是一个`赋值语句`），才是真正意义上的`语法分析`。默认地，antlr生成的语法分析器会构建一个叫做`语法分析树`的数据结构来记录语法分析器是怎样从输入的句子识别出它的结构的。举例说明，下图是一个语言程序基本的数据流：
 
-![](http://www.w-angler.com/static/images/2016-10-16_3B65B48D8BD102AD4FEB64BF94A15C00.png)
+![](https://www.w-angler.com/static/images/2016-10-16_3B65B48D8BD102AD4FEB64BF94A15C00.png)
 
 　　语法分析树的叶子都是输入的token，内部节点是短语名称，而根节点是最抽象的短语名称（在这个例子中是`stat`）。句子（线性的字符序列）和语法分析树在硬件上其实是相通的，句子其实就是一棵棵的语法分析树。为了将我们的想法传达给他人，我们必须通过单词流把幻想中语法分析树“塞进”他们脑中。
 
@@ -140,7 +140,7 @@
 
 　　对于`f();`，有以下两种解读方式：
 
-![](http://www.w-angler.com/static/images/2016-10-16_93B0B810B8BB4A252F5619DE37ED477A.png)
+![](https://www.w-angler.com/static/images/2016-10-16_93B0B810B8BB4A252F5619DE37ED477A.png)
 
 　　左边的语法匹配了第一个候选项（语句），右边的匹配了第二个候选项（函数调用）。
 
@@ -171,13 +171,13 @@
 
 　　在前面，我们学习到，词法分析器处理输入字符，并且将得到的token传递给语法分析器，然后语法分析器会依次检查语法的正确性，并且构建一棵语法分析树。涉及到的antlr中的类有：`CharStream`、`Lexer`、`Token`、`Parser`、`ParseTree`。连接词法分析器和语法分析器的“管道”是`TokenStream`。下图展示了这些东西是如何结合在一起的：
 
-![](http://www.w-angler.com/static/images/2016-10-16_8989C73A906A7EA465CFE4F2D67CB4C4.png)
+![](https://www.w-angler.com/static/images/2016-10-16_8989C73A906A7EA465CFE4F2D67CB4C4.png)
 
 　　为了减少计算机的内存消耗，这些antlr数据结构会尽可能共享多的数据。上图显示，叶子节点（token）在语法分析树中是指向token流中的token的容器。token记录了该token在`CharStream`中起始位置和结束位置的索引，而不是复制一份。同时，因为我们在词法规则中设定跳过空白符，所以，并没有与空白符（索引2和4）相关的token。
 
 　　在这个图中也说明了，`ParseTree`的子类`RuleNode`和`TerminalNode`分别代表了子树根节点和叶子节点。`RuleNode`和`ParseTree`一样，有一些相似的方法，例如`getChild()`和`getParent()`，但是，`RuleNode`并不特定于某种语法。为了更好地支持每一个节点的访问，antlr为每条规则生成一个`RuleNode`的子类。下图显示了之前那个赋值语句语法生成的特定的类，它包含了`StatContext`、`AssignContext`和`ExprContext`：
 
-![](http://www.w-angler.com/static/images/2016-10-16_D3503EE5AC3C0E0B87F8922D3C3F6FDF.png)
+![](https://www.w-angler.com/static/images/2016-10-16_D3503EE5AC3C0E0B87F8922D3C3F6FDF.png)
 
 　　这些被称作`上下文对象`，因为它们记录了在识别过程中的所有上下文信息。每一个上下文对象都知道已经识别的短语的起始token和结束token，并且可以提供了对这些短语的访问。例如，`AssignContext`提供`ID()`和`expr()`方法来访问标识符节点和表达式子树。
 
@@ -197,13 +197,13 @@
 
 　　antlr为每一个语法生成一个`ParseTreeListener`的子类，其中包含每一个语法规则的`enter`和`exit`方法。例如，在遍历器遇到规则`assign`的节点时，它将会触发`enterAssign()`并且给它传递`AssignContext`参数；而在遍历器遍历了`assign`所有的子节点后，它将会触发`exitAssign()`。下图展示了`ParseTreeWalker`是如何进行深度优先遍历的（用虚线表示）：
 
-![](http://www.w-angler.com/static/images/2016-10-16_408A93DE2DE7A000A18689694432AA44.png)
+![](https://www.w-angler.com/static/images/2016-10-16_408A93DE2DE7A000A18689694432AA44.png)
 
 　　上图也显示了`ParseTreeWalker`是在哪里触发规则`assign`的`enter`和`exit`方法的（其他的监听方法没有显示出来）。
 
 　　而下图则展示了`ParseTreeWalker`的完整监听器方法调用队列：
 
-![](http://www.w-angler.com/static/images/2016-10-16_7C9A43F67CCA1052FC316AC691FFD7CD.png)
+![](https://www.w-angler.com/static/images/2016-10-16_7C9A43F67CCA1052FC316AC691FFD7CD.png)
 
 　　监听器的好处在于，它完全是自动的，你不需要自己去写遍历器，而且监听器的方法也不要显式地访问各个节点的子节点。
 
@@ -211,7 +211,7 @@
 
 　　然而，在某些情况下，我们希望自己能够控制遍历的过程，显式地调用方法来访问子节点。在使用antlr生成时，加上参数`-visitor`将会生成一个`Visitor`接口，它包含了对每一个规则的访问方法。它会对语法分析树进行一些和`访问者模式`类似的操作：
 
-![](http://www.w-angler.com/static/images/2016-10-16_C5101EE092ED418C374AE74A410CC949.png)
+![](https://www.w-angler.com/static/images/2016-10-16_C5101EE092ED418C374AE74A410CC949.png)
 
 　　上图中的粗虚线显示了语法分析树的深度优先遍历过程，细虚线表明了Visitor的方法调用队列。为了发起语法树的遍历，我们可以创建一个Visitor接口的实现，然后调用`visit()`方法。
 

@@ -127,7 +127,7 @@
 
 　　当然，我们有更直观的方式来表示识别器是如何识别输入的文本的——可视化解析树。带`-gui`参数运行TestRig，它将会创建一个类似下面的对话框：
 
-![](http://www.w-angler.com/static/images/2016-10-09_AACD48F85B667001077EBB8997E59C2D.png)
+![](https://www.w-angler.com/static/images/2016-10-09_AACD48F85B667001077EBB8997E59C2D.png)
 
 　　不带参数运行`TestRig`将会输出一些帮助信息：
 

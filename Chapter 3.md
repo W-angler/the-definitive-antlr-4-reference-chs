@@ -47,7 +47,7 @@
 
 　　随后，我们会发现，在此目录下，antlr为`ArrayInit.g4`这个语法生成了很多个文件：
 
-![](http://www.w-angler.com/static/images/2016-10-18_458FD8E8F4603041BF512E69EE4F012B.png)
+![](https://www.w-angler.com/static/images/2016-10-18_458FD8E8F4603041BF512E69EE4F012B.png)
 
 　　于此，我们对开发的流程有了一个大致了解。接下来让我们来了解一下这些生成的文件：
 
@@ -112,7 +112,7 @@
 
 　　下面就是弹出的语法分析树对话框：
 
-![](http://www.w-angler.com/static/images/2016-10-18_815EDCD7646FED15569D147F9F3B3DA1.png) 
+![](https://www.w-angler.com/static/images/2016-10-18_815EDCD7646FED15569D147F9F3B3DA1.png) 
 
 　　语法树可以说人话的话，它就是在说“这个输入是用大括号包围的包含三个值的数组初始化，第一个和第三个值是整数`1`和`4`，第二个值也是一个数组，它包含两个值，值为`2`和`3`”。
 
@@ -184,7 +184,7 @@
 
 　　开始编写这个翻译程序之前，我们要知道，如何将输入的token转换为输出的字符串。对此，我们可以先对几个有代表性的例子进行手动翻译，以此来总结转换的过程。在这个例子中，翻译的过程是非常直接的：
 
-![](http://www.w-angler.com/static/images/2016-10-18_A5C23739C285BA5B161E0019A7213D20.png)
+![](https://www.w-angler.com/static/images/2016-10-18_A5C23739C285BA5B161E0019A7213D20.png)
 
 　　通俗来说，这个翻译过程就像是“X 转换为 Y”的映射规则：
 
